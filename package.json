@@ -1,0 +1,30 @@
+{
+  "name": "pomegranate-passport",
+  "version": "0.0.0",
+  "description": "Provides Passport support to the Pomegranate framework.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jim <monstertke@paperelectron.com> (http://paperelectron.com/)",
+  "license": "MIT",
+  "keywords": [
+    "Pomegranate",
+    "Plugin",
+    "Passport"
+  ],
+  "dependencies": {
+    "bluebird": "^3.1.4",
+    "lodash": "^4.0.1",
+    "passport": "^0.3.2"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Pomegranate/pomegranate-passport.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Pomegranate/pomegranate-passport/issues"
+  },
+  "homepage": "https://github.com/Pomegranate/pomegranate-passport"
+}
