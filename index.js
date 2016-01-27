@@ -12,7 +12,6 @@ var Promise = require('bluebird');
 var fs = Promise.promisifyAll(require('fs'));
 var path = require('path');
 var _ = require('lodash');
-
 /**
  *
  * @module index
@@ -20,7 +19,7 @@ var _ = require('lodash');
 
 module.exports = [
   {
-    options:{
+    options: {
       workDir: './passport'
     },
 
@@ -34,13 +33,23 @@ module.exports = [
     plugin: {
       load: function(inject, loaded) {
         var self = this
-        fs.readdir(this.options.workDir, function(err, files) {
-          files.forEach(function(file) {
-            var strategy = require(path.join(self.options.workDir, file));
-            Passport.use(inject(strategy))
-          });
-          loaded(null, Passport)
-        })
+        fs.readdirAsync(this.options.workDir)
+          .then(function(files) {
+            _.each(files, function(file) {
+              var strategy = require(path.join(self.options.workDir, file));
+
+              if(_.isFunction(strategy)) {
+                var injectedStrategy = inject(strategy);
+                return Passport.use(injectedStrategy)
+              }
+
+            });
+
+            loaded(null, Passport)
+          })
+          .catch(function(err){
+            return loaded(err, null)
+          })
 
       },
       start: function(done) {
@@ -62,22 +71,22 @@ module.exports = [
       param: 'Middleware'
     },
     plugin: {
-      load: function(inject, loaded){
+      load: function(inject, loaded) {
         var PassPortMiddlewares = {
-          passportInitialize: function(req, res, next){
+          passportInitialize: function(req, res, next) {
             return Passport.initialize()(req, res, next)
           },
-          passportSession: function(req, res, next){
+          passportSession: function(req, res, next) {
             return Passport.session()(req, res, next)
           }
         }
 
         loaded(null, PassPortMiddlewares)
       },
-      start: function(done){
+      start: function(done) {
         done()
       },
-      stop: function(done){
+      stop: function(done) {
         done()
       }
     }
