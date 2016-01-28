@@ -33,7 +33,7 @@ module.exports = [
     plugin: {
       load: function(inject, loaded) {
         var self = this;
-
+        var strategyCount = 0;
         // Get files from configured work directory. Defaults to ./passport
         fs.readdirAsync(this.options.workDir)
           .then(function(files) {
@@ -46,18 +46,20 @@ module.exports = [
 
                 // Typecheck the object returned if it is a Strategy add it to Passport
                 if(_.isFunction(injectedStrategy.authenticate)){
-                  self.Logger.log('Adding ' + injectedStrategy.name)
+                  self.Logger.log('Adding ' + injectedStrategy.name + ' Strategy');
+                  strategyCount += 1;
                   return Passport.use(injectedStrategy)
                 }
 
                 // If it an object containing serialization functions, add those to Passport.
                 if(_.isFunction(injectedStrategy.serializeUser) && _.isFunction(injectedStrategy.deserializeUser)){
+                  self.Logger.log('Adding Serialization functions.');
                   Passport.serializeUser(injectedStrategy.serializeUser);
                   Passport.deserializeUser(injectedStrategy.deserializeUser);
                 }
               }
             });
-
+            self.Logger.log(strategyCount + ' Strategies added.');
             loaded(null, Passport)
           })
           .catch(function(err){
