@@ -37,7 +37,12 @@ module.exports = [
         // Get files from configured work directory. Defaults to ./passport
         fs.readdirAsync(this.options.workDir)
           .then(function(files) {
-            _.each(files, function(file) {
+            _.chain(files)
+              .filter(function(file){
+                var hidden = /^\..*/
+                return !hidden.test(file)
+              })
+              .each(function(file) {
               var strategy = require(path.join(self.options.workDir, file));
 
               if(_.isFunction(strategy)) {
@@ -58,7 +63,7 @@ module.exports = [
                   Passport.deserializeUser(injectedStrategy.deserializeUser);
                 }
               }
-            });
+            }).value();
             self.Logger.log(strategyCount + ' Strategies added.');
             loaded(null, Passport)
           })
