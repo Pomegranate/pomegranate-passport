@@ -26,7 +26,8 @@ module.exports = [
     metadata: {
       name: 'Passport',
       type: 'service',
-      param: 'Passport'
+      param: 'Passport',
+      optional: ['Controllers']
     },
 
     plugin: {
