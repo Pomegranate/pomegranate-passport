@@ -86,7 +86,8 @@ module.exports = [
     metadata: {
       name: 'PassportMiddleware',
       type: 'merge',
-      param: 'Middleware'
+      param: 'Middleware',
+      depends: ['Passport']
     },
     plugin: {
       load: function(inject, loaded) {
