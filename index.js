@@ -24,7 +24,7 @@ module.exports = [
     },
 
     metadata: {
-      name: 'PassportAuth',
+      name: 'Passport',
       type: 'service',
       param: 'Passport'
     },
