@@ -24,9 +24,8 @@ module.exports = [
     },
 
     metadata: {
-      name: 'Passport',
+      name: 'PassportAuth',
       type: 'service',
-      layer: 'dependency',
       param: 'Passport'
     },
 
@@ -87,7 +86,6 @@ module.exports = [
     metadata: {
       name: 'PassportMiddleware',
       type: 'merge',
-      layer: 'dependency',
       param: 'Middleware'
     },
     plugin: {
