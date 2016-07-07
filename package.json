@@ -1,6 +1,6 @@
 {
   "name": "pomegranate-passport",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Provides Passport support to the Pomegranate framework.",
   "main": "index.js",
   "scripts": {
